@@ -1,0 +1,88 @@
+{% extends 'phonebook/layout.html' %}
+
+{% block head %}
+
+<style>
+    .msg {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    #navbar {
+        display: none;
+    }
+    #main {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #main .main-top {
+        margin: 20px;
+    }
+
+    #main .main-top h1 {
+        font-size: 5rem;
+        letter-spacing: 0.3rem;
+        padding-bottom: 20px;
+    }
+
+    #main .main-bottom {
+        width: 40%;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch
+    });
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <div class="main-top">
+        <h1>Registration Form</h1>
+    </div>
+    <div class="main-bottom">
+        <form action="{% url 'phonebook:register' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" autocomplete="off" value="{{ first_name }}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" autocomplete="off" value="{{ last_name }}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="Username" name="username" autocomplete="off" value="{{ username }}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ email }}">
+            </div>
+            {% if message%}
+            <div class="msg">{{ message }}</div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

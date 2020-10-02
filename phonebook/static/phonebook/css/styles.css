@@ -1,0 +1,20 @@
+
+
+.cta{
+    display: inline-block;
+    padding: 2px 3px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    margin: 0 2px;
+    transition: .3s ease;
+    transition-property: background-color, color;
+}
+.cta:hover{
+    color: white;
+    text-decoration: none;
+    background-color: black;
+}

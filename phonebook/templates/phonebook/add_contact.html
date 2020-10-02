@@ -1,0 +1,89 @@
+{% extends 'phonebook/layout.html' %}
+
+{% block head %}
+
+<style>
+    .logout {
+        top: 0;
+        right: 0;
+        position: absolute;
+        text-transform: uppercase;
+        margin: 10px;
+    }
+    .logout span {
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+        margin-right: 5px;
+    }
+    #main {
+        min-height: 80vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #main .main-top {
+        margin: 20px;
+    }
+
+    #main .main-top h1 {
+        font-size: 5rem;
+        letter-spacing: 0.3rem;
+        padding-bottom: 20px;
+    }
+
+    #main .main-bottom {
+        width: 40%;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('form').onsubmit(function() {
+            const x = document.querySelector('#id').value;
+            if(x !== 0) {
+                document.form.action = `/edit_contact/${x}`;
+            } else {
+                document.form.action = '/add_contact';
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <div class="logout">
+        <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
+        <a href="{% url 'phonebook:logout' %}">logout</a>
+    </div>
+    <div class="main-top">
+        <h1>Contact Info.</h1>
+    </div>
+    <div class="main-bottom">
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <input type="hidden" id='id' name="id" value="{{ contact.id }}">
+            <div class="form-group">
+                <label >Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ contact.contactName }}">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" id="emial" name="email" value="{{ contact.contactEmail }}">
+            </div>
+            <div class="form-group">
+                <label>Phone number</label>
+                <input type="text" class="form-control" id="phonenumber" name="phonenumber" value="{{ contact.contactNumber }}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Contact</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

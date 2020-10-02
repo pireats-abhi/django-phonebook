@@ -1,0 +1,78 @@
+{% extends 'phonebook/layout.html' %}
+
+{% block head %}
+<style>
+    .logout {
+        top: 0;
+        right: 0;
+        position: absolute;
+        text-transform: uppercase;
+        margin: 10px;
+    }
+
+    .logout span {
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+        margin-right: 5px;
+    }
+
+    #main .main-top {
+        text-align: center;
+        margin: 20px;
+    }
+
+    #main .main-bottom {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    #main .main-bottom tr th,
+    td {
+        text-align: center;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+
+<div id="main">
+    <div class="logout">
+        <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
+        <a href="{% url 'phonebook:logout' %}">logout</a>
+    </div>
+    <div class="main-top">
+        <h1>Phone Book</h1>
+        <a href="{% url 'phonebook:add_contact' %}">Create new contact</a>
+    </div>
+    <div class="main-bottom">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in datas %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ data.contactName }}</td>
+                    <td>{{ data.contactEmail }}</td>
+                    <td>{{ data.contactNumber}}</td>
+                    <td><a href="{% url 'phonebook:edit_contact' data.id %}" class="cta">Edit</a> <a href="{% url 'phonebook:delete_contact' data.id %}" class="cta">Dlt</a></td>
+                </tr>
+                {% empty %}
+                <p>Contact List is Empty.</p>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

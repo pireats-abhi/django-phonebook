@@ -1,0 +1,76 @@
+{% extends 'phonebook/layout.html' %}
+
+{% block head %}
+
+<style>
+    .msg {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #navbar {
+        display: none;
+    }
+
+    #main {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #main .main-top {
+        margin: 20px;
+    }
+
+    #main .main-top h1 {
+        font-size: 5rem;
+        letter-spacing: 0.3rem;
+        padding-bottom: 20px;
+    }
+
+    #main .main-bottom {
+        width: 25%;
+    }
+
+    #main .main-bottom p {
+        text-align: center;
+        margin: 10px;
+    }
+</style>
+
+
+{% endblock %}
+
+{% block body %}
+
+<div id="main">
+    <div class="main-top">
+        <h1>Login page</h1>
+    </div>
+    <div class="main-bottom">
+
+        <form action="{% url 'phonebook:login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            {% if message %}
+            <div class="msg">{{ message }}</div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+        <p>Not registered? <a href="{% url 'phonebook:register' %}">Create an account</a></p>
+    </div>
+</div>
+
+
+{% endblock %}
